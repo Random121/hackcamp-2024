@@ -136,6 +136,7 @@ export default function MainMenu() {
                     </Typography>
                     {auth && (
                         <div>
+                            <Link href="/profile">
                         <IconButton
                             size="large"
                             aria-label="account of current user"
@@ -146,24 +147,7 @@ export default function MainMenu() {
                         >
                             <AccountCircle />
                         </IconButton>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorEl}
-                            anchorOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                            }}
-                            open={Boolean(anchorEl)}
-                            onClose={handleClose}
-                        >
-                            <Link href="/profile"><MenuItem onClick={handleClose}>Profile</MenuItem></Link>
-                            <MenuItem onClick={handleClose}>My account</MenuItem>
-                        </Menu>
+                        </Link>
                         </div>
                     )}
                     </Toolbar>
