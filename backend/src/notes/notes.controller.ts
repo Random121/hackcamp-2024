@@ -4,7 +4,7 @@ import {
     Get,
     Logger,
     Param,
-    ParseIntPipe,
+    ParseFloatPipe,
     Post,
     Query,
 } from '@nestjs/common';
@@ -40,8 +40,8 @@ export class NotesController {
 
     @Get('/near')
     getAllNearLocation(
-        @Query('lattitude', ParseIntPipe) lattitude: number,
-        @Query('longitude', ParseIntPipe) longitude: number,
+        @Query('lattitude', ParseFloatPipe) lattitude: number,
+        @Query('longitude', ParseFloatPipe) longitude: number,
     ) {
         const position = {
             type: 'Point',
