@@ -56,7 +56,7 @@ function LoginPage() {
                             <h1>{user}</h1>
                         </div>
                     </div>
-                    <Link href= "/mainMenu">            
+                    <Link href= "/mainMenu">
                         <button className={styles.buttons}>Login</button>
                     </Link>
                 </>
