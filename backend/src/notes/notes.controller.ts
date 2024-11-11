@@ -3,6 +3,7 @@ import {
     Controller,
     Get,
     Logger,
+    NotFoundException,
     Param,
     ParseFloatPipe,
     Post,
@@ -17,7 +18,10 @@ import { Repository } from 'typeorm';
 
 @Controller('notes')
 export class NotesController {
-    constructor(@InjectRepository(Note) private noteRepo: Repository<Note>) {}
+    constructor(
+        @InjectRepository(Note) private noteRepo: Repository<Note>,
+        @InjectRepository(Comment) private commentRepo: Repository<Comment>,
+    ) {}
 
     @Post()
     create(@Body() createNoteDto: CreateNoteDto) {
@@ -56,6 +60,11 @@ export class NotesController {
             .setParameters({
                 origin: JSON.stringify(position),
             })
+            .leftJoinAndSelect(
+                'note.comments',
+                'comment',
+                'comment.note = note.id',
+            )
             .getMany();
     }
 
@@ -67,19 +76,20 @@ export class NotesController {
         const comment = new Comment();
         comment.text = createCommentDto.comment;
         comment.username = createCommentDto.username;
-        this.noteRepo.save(comment);
+        await this.commentRepo.save(comment);
 
         const note = await this.noteRepo.findOneBy({
             id: id,
         });
 
         if (!note) {
-            return;
+            throw new NotFoundException();
         }
-        Logger.log(note.subject);
 
-        note.comments?.push(comment);
-
-        this.noteRepo.save(note);
+        this.noteRepo
+            .createQueryBuilder('note')
+            .relation(Note, 'comments')
+            .of(note)
+            .add(comment);
     }
 }
