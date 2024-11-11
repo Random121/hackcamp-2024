@@ -55,7 +55,7 @@ export default function ProfilePage() {
 
     return (
         <div className="flex flex-col items-center p-6 min-h-screen bg-white">
-            <Link href="/login"><TopLeftIcon /> </Link>
+            <Link href="/mainMenu"><TopLeftIcon /> </Link>
             <Greeting />
             <Avatar />
             <BioSection bio={bio} setBio={setBio} />

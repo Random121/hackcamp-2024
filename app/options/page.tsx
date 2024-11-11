@@ -17,7 +17,7 @@ const OptionsPage = () => {
       {/* Header with Title and Menu Icon */}
       <div className="flex justify-between items-center mb-16">
         <h1 className="text-4xl font-normal text-center flex-grow text-black">Options</h1>
-        <Link href= {"/profile"}><div className="space-y-1.5 cursor-pointer">
+        <Link href= {"/mainMenu"}><div className="space-y-1.5 cursor-pointer">
           <div className="w-6 h-0.5 bg-black"></div>
           <div className="w-6 h-0.5 bg-black"></div>
           <div className="w-6 h-0.5 bg-black"></div>
