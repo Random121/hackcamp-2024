@@ -12,7 +12,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
-import { Stack, Box, Fab, Card, CardContent, Typography, IconButton, TextField, Button  } from '@mui/material';
+
+import { Stack, Box, Fab, Card, CardContent, Typography, IconButton, TextField, Button, createTheme, ThemeProvider  } from '@mui/material';
 import Link from "next/link";
 
 import {
@@ -37,7 +38,7 @@ export default function MainMenu() {
     setAnchorEl(null);
   };
 
-  const position = {lat:49.26, lng:-123.25  };
+  const position = {lat:49.26, lng:-123.25};
 
   const [showCard, setShowCard] = React.useState(false);
 
@@ -48,9 +49,20 @@ export default function MainMenu() {
   const handleCloseClick = () => {
     setShowCard(false);
   };
+
+  const theme = createTheme({
+    palette: {
+        primary: {
+            main: '#D64C4C',
+        }, 
+    }
+  });
+
+  const [open, setOpen] = React.useState(false);
 //   console.log(process.env.NEXT_PUBLIC_API_KEY);
 
   return (
+    <ThemeProvider theme = {theme}>
     <Box position="relative" height = "100vh" width = "100vw">
         {/* Overlay Card */}
         {showCard && (
@@ -161,7 +173,16 @@ export default function MainMenu() {
             <Box sx={{ flexGrow: 1 }}>
                 <APIProvider apiKey={process.env.NEXT_PUBLIC_API_KEY as string}>
                         <div style={{height: "100vh"}}>
-                            <Map defaultZoom={18} defaultCenter={position}>
+                            <Map defaultZoom={18} defaultCenter={position} mapId={process.env.NEXT_PUBLIC_MAP_ID}>
+                                <AdvancedMarker position={position} onClick={() => setOpen(true)}>
+                                    <Pin background={"red"} borderColor={"black"} glyphColor={"white"}></Pin>
+                                </AdvancedMarker>
+
+                                {open && (
+                                    <InfoWindow position={position}>
+                                        <p>What the flip</p>
+                                    </InfoWindow>
+                                    )}
                             </Map>
                         </div>
                 </APIProvider>
@@ -176,7 +197,7 @@ export default function MainMenu() {
             </Fab>
         </Box>
     </Box>
-    
+    </ThemeProvider>
     
   );
 }
