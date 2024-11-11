@@ -264,6 +264,7 @@ export default function MainMenu() {
                     >
                       <AccountCircle />
                     </IconButton>
+<<<<<<< HEAD
                     <Menu
                       id="menu-appbar"
                       anchorEl={anchorEl}
@@ -309,6 +310,43 @@ export default function MainMenu() {
               </div>
             </APIProvider>
           </Box>
+=======
+                    
+                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                        Photos
+                    </Typography>
+                    {auth && (
+                        <div>
+                            <Link href="/profile">
+                        <IconButton
+                            size="large"
+                            aria-label="account of current user"
+                            aria-controls="menu-appbar"
+                            aria-haspopup="true"
+                            onClick={handleMenu}
+                            color="inherit"
+                        >
+                            <AccountCircle />
+                        </IconButton>
+                        </Link>
+                        </div>
+                    )}
+                    </Toolbar>
+                </AppBar>
+            </Box>
+            
+            <Box sx={{ flexGrow: 1 }}>
+                <APIProvider apiKey={process.env.NEXT_PUBLIC_API_KEY as string}>
+                        <div style={{height: "100vh"}}>
+                            <Map defaultZoom={18} defaultCenter={position} mapId={process.env.NEXT_PUBLIC_MAP_ID}>
+                                <AdvancedMarker position={position} onClick={handleOpenNote}>
+                                    <Pin background={"red"} borderColor={"black"} glyphColor={"white"}></Pin>
+                                </AdvancedMarker>
+                            </Map>
+                        </div>
+                </APIProvider>
+            </Box>
+>>>>>>> master
         </Stack>
         <Box
           sx={{ flexGrow: 1 }}
