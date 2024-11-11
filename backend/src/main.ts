@@ -1,6 +1,5 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import Database from 'better-sqlite3';
 import 'dotenv/config';
 
 async function bootstrap() {
