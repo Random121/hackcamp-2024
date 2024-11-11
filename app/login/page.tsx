@@ -56,12 +56,7 @@ function LoginPage() {
                             <h1>{user}</h1>
                         </div>
                     </div>
-                    <Link href={{
-                        pathname: "/profile",
-                        query:{
-                            username: user
-                        }
-                        }}>
+                    <Link href= "/mainMenu">            
                         <button className={styles.buttons}>Login</button>
                     </Link>
                 </>
@@ -93,7 +88,14 @@ function LoginPage() {
                             <h1>{pronoun}</h1>
                         </div>
                     </div>
-                    <button className={styles.buttons}>Sign Up</button>
+                    <Link href={{
+                        pathname: "/profile",
+                        query:{
+                            username: user
+                        }
+                        }}>
+                        <button className={styles.buttons}>Sign Up</button>
+                    </Link>
                 </>
             )}
         </div>
