@@ -12,6 +12,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
+import FaceIcon from '@mui/icons-material/Face';
+import SendIcon from '@mui/icons-material/Send';
 
 import { Stack, Box, Fab, Card, CardContent, Typography, IconButton, TextField, Button, createTheme, ThemeProvider  } from '@mui/material';
 import Link from "next/link";
@@ -59,12 +61,20 @@ export default function MainMenu() {
   });
 
   const [open, setOpen] = React.useState(false);
+
+  const handleOpenNote = () => {
+    setOpen(true);
+  };
+
+  const handleCloseNote = () => {
+    setOpen(false);
+  };
 //   console.log(process.env.NEXT_PUBLIC_API_KEY);
 
   return (
     <ThemeProvider theme = {theme}>
     <Box position="relative" height = "100vh" width = "100vw">
-        {/* Overlay Card */}
+        {/* Write Note Card */}
         {showCard && (
             <Card
             sx={{
@@ -97,6 +107,55 @@ export default function MainMenu() {
                     </Box>
                     <Box>
                         <Button variant="contained">Confirm</Button>
+                    </Box>
+                </Stack>
+                
+                
+            </CardContent>
+            </Card>
+        )}
+
+        {/* View Note Card */}
+        {open && (
+            <Card
+            sx={{
+                position: 'fixed',
+                left: 0,
+                right: 0,
+                bottom: 0,
+                height: '40vh',
+                margin: '24px',
+                marginY: '110px',
+                zIndex: 10,
+            }}
+            >
+            <CardContent
+                sx={{
+                    overflow: 'auto',
+                    height: '100%',
+                    padding: 2,
+                }}
+            >
+                <Stack spacing={1}>
+                    <Box display="flex" justifyContent="space-between" alignItems="center">
+                        <FaceIcon></FaceIcon>
+                        <Typography variant="h6" sx={{ flexGrow: 1 }}>
+                            Emily
+                        </Typography>
+                        <IconButton onClick={handleCloseNote}>
+                            <CloseIcon />
+                        </IconButton>
+                    </Box>
+                    <Box>
+                        <Typography variant="h5" sx={{ flexGrow: 1 }}>
+                            I love Matcha Latte
+                        </Typography>
+                    </Box>
+                    <Box>
+                        <TextField fullWidth label="Send a Comment" id="fullWidth" multiline={true} rows={7} />
+                    </Box>
+                    <Box display="flex" justifyContent="center" alignItems="center">
+                        <Button variant="contained" startIcon={<SendIcon />}>Send</Button>
                     </Box>
                 </Stack>
                 
@@ -174,15 +233,9 @@ export default function MainMenu() {
                 <APIProvider apiKey={process.env.NEXT_PUBLIC_API_KEY as string}>
                         <div style={{height: "100vh"}}>
                             <Map defaultZoom={18} defaultCenter={position} mapId={process.env.NEXT_PUBLIC_MAP_ID}>
-                                <AdvancedMarker position={position} onClick={() => setOpen(true)}>
+                                <AdvancedMarker position={position} onClick={handleOpenNote}>
                                     <Pin background={"red"} borderColor={"black"} glyphColor={"white"}></Pin>
                                 </AdvancedMarker>
-
-                                {open && (
-                                    <InfoWindow position={position}>
-                                        <p>What the flip</p>
-                                    </InfoWindow>
-                                    )}
                             </Map>
                         </div>
                 </APIProvider>
