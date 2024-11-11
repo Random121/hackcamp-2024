@@ -1,4 +1,4 @@
-import { Logger } from '@nestjs/common';
+import { Inject } from '@nestjs/common';
 import {
     ConnectedSocket,
     MessageBody,
@@ -6,6 +6,7 @@ import {
     WebSocketGateway,
 } from '@nestjs/websockets';
 import { Socket } from 'socket.io';
+import { NotesService } from 'src/notes/notes.service';
 import { UpdateLocationDto } from 'src/tracker/update-location.dto';
 
 interface TrackerClientData {
@@ -23,18 +24,19 @@ class TrackerClientSocket extends Socket<
 
 @WebSocketGateway({ cors: { origin: '*' } })
 export class TrackerGateway {
+    constructor(@Inject() private notesService: NotesService) {}
+
     @SubscribeMessage('updateLocation')
-    handleUpdateLocation(
+    async handleUpdateLocation(
         @ConnectedSocket() client: TrackerClientSocket,
         @MessageBody() location: UpdateLocationDto,
     ) {
         client.data.lattitude = location.lattitude;
         client.data.longitude = location.longitude;
 
-        Logger.log(
-            `${client.data.username}: ${location.lattitude} ${location.longitude}`,
+        return this.notesService.getAllNearLocation(
+            location.longitude,
+            location.lattitude,
         );
-
-        return location;
     }
 }
