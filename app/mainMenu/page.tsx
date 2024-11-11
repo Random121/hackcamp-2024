@@ -105,7 +105,7 @@ export default function MainMenu() {
                     <Box>
                         <TextField fullWidth label="Description" id="fullWidth" multiline={true} rows={7} />
                     </Box>
-                    <Box>
+                    <Box display="flex" justifyContent="center" alignItems="center">
                         <Button variant="contained">Confirm</Button>
                     </Box>
                 </Stack>
