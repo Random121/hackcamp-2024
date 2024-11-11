@@ -21,6 +21,7 @@ export class NotesService {
             type: 'Point',
             coordinates: [+createNoteDto.longitude, +createNoteDto.lattitude],
         };
+        this.noteRepo.save(note);
     }
 
     getAllNearLocation(longitude: number, lattitude: number) {
