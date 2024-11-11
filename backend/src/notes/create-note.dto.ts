@@ -1,4 +1,5 @@
 export class CreateNoteDto {
+    username: string;
     subject: string;
     body: string;
     tags: string[];

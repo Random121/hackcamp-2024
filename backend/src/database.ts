@@ -1,4 +1,5 @@
-import sqlite3 from "sqlite3";
+import sqlite3 from 'sqlite3';
+
 export const db = new sqlite3.Database('database.db', (err) => {
     if (err) {
         console.error('Error opening database:', err.message);
@@ -6,3 +7,7 @@ export const db = new sqlite3.Database('database.db', (err) => {
     }
     console.log('Connected to the SQLite database.');
 });
+
+export function close() {
+    db.close();
+}
