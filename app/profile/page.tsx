@@ -3,25 +3,28 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
+import { useSearchParams } from 'next/navigation';  // useSearchParams for accessing query params
 
 const TopLeftIcon = () => {
     return (
         <div className="absolute top-4 left-4 w-10 h-10" >
-            <Image src="./toplefticon.svg" alt="Map Icon" className="w-full h-full" width = "59" height = "59" />
+            <Image src="./toplefticon.svg" alt="Map Icon" className="w-full h-full" width="59" height="59" />
         </div>
     );
 };
 
 const Greeting = () => {
+    const searchParams = useSearchParams();
+    const username = searchParams.get('username') ?? 'Guest';  // Default to 'Guest' if username is missing
     return (
-        <h1 className="text-2xl font-medium mb-8" style={{ color: 'black' }} >Hello Username!!</h1>
+        <h1 className="text-2xl font-medium mb-8" style={{ color: 'black' }} >Hello {username}!!</h1>
     );
 };
 
 const Avatar = () => {
     return (
         <div className="w-24 h-24 bg-gray-200 rounded-full mb-8 flex items-center justify-center">
-            <Image src="./ProfilePic.svg" alt="Avatar of Dog" width="100" height = "100"></Image>
+            <Image src="./ProfilePic.svg" alt="Avatar of Dog" width="100" height="100"></Image>
         </div>
     );
 };
@@ -47,12 +50,12 @@ const BioSection: React.FC<BioSectionProps> = ({ bio, setBio }) => {
     );
 };
 
-export default  function ProfilePage() {
+export default function ProfilePage() {
     const [bio, setBio] = useState<string>('');
 
     return (
         <div className="flex flex-col items-center p-6 min-h-screen bg-white">
-            <Link href="/options"><TopLeftIcon /> </Link>
+            <Link href="/mainMenu"><TopLeftIcon /> </Link>
             <Greeting />
             <Avatar />
             <BioSection bio={bio} setBio={setBio} />

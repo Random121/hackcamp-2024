@@ -12,7 +12,9 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
+
 import { Stack, Box, Fab, Card, CardContent, Typography, IconButton, TextField, Button, createTheme, ThemeProvider  } from '@mui/material';
+import Link from "next/link";
 
 import {
     APIProvider, Map, AdvancedMarker, Pin, InfoWindow,
@@ -126,8 +128,9 @@ export default function MainMenu() {
                         aria-label="menu"
                         sx={{ mr: 2 }}
                     >
-                        <MenuIcon />
+                        <Link href = "/options"><MenuIcon /></Link>
                     </IconButton>
+                    
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Photos
                     </Typography>
@@ -158,7 +161,7 @@ export default function MainMenu() {
                             open={Boolean(anchorEl)}
                             onClose={handleClose}
                         >
-                            <MenuItem onClick={handleClose}>Profile</MenuItem>
+                            <Link href="/profile"><MenuItem onClick={handleClose}>Profile</MenuItem></Link>
                             <MenuItem onClick={handleClose}>My account</MenuItem>
                         </Menu>
                         </div>
